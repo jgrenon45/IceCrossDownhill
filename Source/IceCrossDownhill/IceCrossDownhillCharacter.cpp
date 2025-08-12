@@ -10,13 +10,16 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include <SkatingMovementComponent.h>
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
-AIceCrossDownhillCharacter::AIceCrossDownhillCharacter()
+AIceCrossDownhillCharacter::AIceCrossDownhillCharacter(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer.SetDefaultSubobjectClass<USkatingMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+	PrimaryActorTick.bCanEverTick = true;	
 		
 	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
@@ -33,8 +36,9 @@ AIceCrossDownhillCharacter::AIceCrossDownhillCharacter()
 	GetCharacterMovement()->AirControl = 0.35f;
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
-	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
-	GetCharacterMovement()->BrakingDecelerationFalling = 1500.0f;
+	GetCharacterMovement()->BrakingDecelerationWalking = 0.f;
+	GetCharacterMovement()->BrakingDecelerationFalling = 0.f;
+	GetCharacterMovement()->GroundFriction = 0.01f;
 
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
@@ -105,9 +109,9 @@ void AIceCrossDownhillCharacter::DoMove(float Right, float Forward)
 		// get right vector 
 		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-		// add movement 
+		// Mouvement joueur (modifié par la pente)
 		AddMovementInput(ForwardDirection, Forward);
-		AddMovementInput(RightDirection, Right);
+		AddMovementInput(RightDirection, Right);	
 	}
 }
 

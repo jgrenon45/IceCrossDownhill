@@ -19,7 +19,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
  *  Implements a controllable orbiting camera
  */
 UCLASS(abstract)
-class AIceCrossDownhillCharacter : public ACharacter
+class AIceCrossDownhillCharacter : public ACharacter   
 {
 	GENERATED_BODY()
 
@@ -52,7 +52,7 @@ protected:
 public:
 
 	/** Constructor */
-	AIceCrossDownhillCharacter();	
+	AIceCrossDownhillCharacter(const FObjectInitializer& ObjectInitializer);
 
 protected:
 
