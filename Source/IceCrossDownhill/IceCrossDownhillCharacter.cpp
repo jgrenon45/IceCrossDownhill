@@ -70,6 +70,10 @@ void AIceCrossDownhillCharacter::SetupPlayerInputComponent(UInputComponent* Play
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AIceCrossDownhillCharacter::Look);
+
+		// Sprinting
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AIceCrossDownhillCharacter::Sprint);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AIceCrossDownhillCharacter::StopSprint);
 	}
 	else
 	{
@@ -93,6 +97,16 @@ void AIceCrossDownhillCharacter::Look(const FInputActionValue& Value)
 
 	// route the input
 	DoLook(LookAxisVector.X, LookAxisVector.Y);
+}
+
+void AIceCrossDownhillCharacter::Sprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 700.f; // Increase speed for sprinting
+}
+
+void AIceCrossDownhillCharacter::StopSprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 500.f; // Reset speed after sprinting
 }
 
 void AIceCrossDownhillCharacter::DoMove(float Right, float Forward)
