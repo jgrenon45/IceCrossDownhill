@@ -15,7 +15,7 @@ void UTimerWidget::SetCountdownTime(float Time)
 			GetWorld()->GetTimerManager().SetTimer(TempTimerHandle, [this]()
 				{
 					ToggleCountdownVisibility(false);
-				}, 0.1f, false);
+				}, 0.3f, false);
 		}
 		else
 			CountDownTime->SetText(FText::AsNumber(Time, &FNumberFormattingOptions::DefaultNoGrouping()));

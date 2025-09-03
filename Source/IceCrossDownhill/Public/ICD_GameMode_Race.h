@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Gates.h"
 #include "ICD_GameMode_Race.generated.h"
 
 /**

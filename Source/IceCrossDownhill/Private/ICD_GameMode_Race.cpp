@@ -54,9 +54,9 @@ void AICD_GameMode_Race::StartRace()
         GS->bRaceInProgress = true;
     }
 
-    // Open gates
-    /*for (AGateActor* Gate : Gates)
-        if (Gate) Gate->Open();*/
+    // Open gates      
+    AGates* Gates = Cast<AGates>(UGameplayStatics::GetActorOfClass(GetWorld(), AGates::StaticClass()));       
+    if (Gates) Gates->Open();
 
     // Enable movement
     for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
