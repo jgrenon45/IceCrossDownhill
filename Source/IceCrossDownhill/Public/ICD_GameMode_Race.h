@@ -26,7 +26,12 @@ public:
 
     void StartRace();
 
-    void FinishRace(AController* Player);
+    void FinishRace();
+
+    void FinishLap();
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Race")
+	int NumberOfLaps = 3; // Default value, can be set per level in Editor
 
 private:
     FTimerHandle CountdownHandle;

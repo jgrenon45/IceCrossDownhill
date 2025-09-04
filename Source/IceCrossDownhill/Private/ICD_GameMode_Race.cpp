@@ -63,10 +63,16 @@ void AICD_GameMode_Race::StartRace()
         It->Get()->SetIgnoreMoveInput(false);
 }
 
-void AICD_GameMode_Race::FinishRace(AController* Player)
+void AICD_GameMode_Race::FinishRace()
 {
     if (AICD_GameState* GS = GetGameState<AICD_GameState>())
         GS->bRaceInProgress = false;
 
     GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Race Finished!"));
+}
+
+void AICD_GameMode_Race::FinishLap()
+{    
+    if (AICD_GameState* GS = GetGameState<AICD_GameState>())
+    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Lap Finished! Time: " + FString::SanitizeFloat(GS->GetRaceElapsedTime())));
 }

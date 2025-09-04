@@ -2,6 +2,7 @@
 
 
 #include "FinishLine.h"
+#include <ICD_PlayerState.h>
 #include "ICD_GameMode_Race.h"
 
 // Sets default values
@@ -19,8 +20,23 @@ void AFinishLine::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Ot
     UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
     if (APawn* Pawn = Cast<APawn>(OtherActor))
-        if (AController* PC = Pawn->GetController())
-            if (AICD_GameMode_Race* GM = GetWorld()->GetAuthGameMode<AICD_GameMode_Race>())
-                GM->FinishRace(PC);
+    {
+		AICD_PlayerState* PS = Cast<AICD_PlayerState>(Pawn->GetPlayerState());           
+        if (AICD_GameMode_Race* GM = GetWorld()->GetAuthGameMode<AICD_GameMode_Race>())
+        {
+			//Increment lap count
+			PS->CurrentLap++;
+
+            // Check if race is finished
+            if (PS->CurrentLap > GM->NumberOfLaps)
+            {
+                GM->FinishRace(); 
+            }
+            else
+            {
+                GM->FinishLap();
+            }
+        }
+    }
 }
 
