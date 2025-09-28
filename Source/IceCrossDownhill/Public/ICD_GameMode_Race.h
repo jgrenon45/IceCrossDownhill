@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Gates.h"
+#include "ICD_PlayerState.h"
+#include "IceCrossDownhillPlayerController.h"
 #include "ICD_GameMode_Race.generated.h"
 
 /**
@@ -28,7 +30,7 @@ public:
 
     void FinishRace();
 
-    void FinishLap();
+    void FinishLap(AICD_PlayerState* PlayerState, AIceCrossDownhillPlayerController* PlayerController);
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Race")
 	int NumberOfLaps = 3; // Default value, can be set per level in Editor

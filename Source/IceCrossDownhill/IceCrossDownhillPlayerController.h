@@ -16,6 +16,8 @@ UCLASS(abstract)
 class AIceCrossDownhillPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+public:
+	void OnLapCompleted(float Time);
 	
 protected:
 

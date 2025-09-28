@@ -3,6 +3,7 @@
 
 #include "TimerWidget.h"
 #include "Components/TextBlock.h"
+#include "Components/VerticalBox.h"
 
 void UTimerWidget::SetCountdownTime(float Time)
 {
@@ -27,6 +28,19 @@ void UTimerWidget::SetRaceTime(float Time)
 	if (RaceTime)
 	{
 		RaceTime->SetText(FormatTime(Time));
+	}
+}
+
+void UTimerWidget::SetLapTime(float Time)
+{
+	if(LapsTimes)
+	{
+		// Create a new TextBlock widget
+		UTextBlock* LapText = NewObject<UTextBlock>(LapsTimes);
+		LapText->SetText(FormatTime(Time));
+
+		// Add it to the vertical box
+		LapsTimes->AddChildToVerticalBox(LapText);
 	}
 }
 

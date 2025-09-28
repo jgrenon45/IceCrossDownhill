@@ -19,7 +19,7 @@ public:
 
     virtual void Tick(float DeltaSeconds) override;
 
-    UPROPERTY(EditDefaultsOnly, Category = "UI")
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
     TSubclassOf<UUserWidget> TimerWidgetClass;
 
     UPROPERTY()
@@ -27,6 +27,7 @@ public:
 
     void UpdateCountdown(float NewTime);
     void UpdateRaceTime(float NewTime);
+	void UpdateLapTime(float NewTime);
 
 private:
     TObjectPtr<AICD_GameState> CachedGameState;

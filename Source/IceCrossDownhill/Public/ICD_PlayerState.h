@@ -18,4 +18,10 @@ public :
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Race")
 	int CurrentLap = 1;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Race")
+	TMap<int, float> Laps;
+	
+	UFUNCTION(NotBlueprintable)
+	void UpdateLaps(float Time);
 };

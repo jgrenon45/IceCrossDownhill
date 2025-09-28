@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "TimerWidget.generated.h"
 
+class UVerticalBox;
 class UTextBlock;
 
 UCLASS()
@@ -18,6 +19,8 @@ public:
     void SetCountdownTime(float Time);
 
     void SetRaceTime(float Time);
+	
+	void SetLapTime(float Time);
 
 	void ToggleRaceTimeVisibility(bool bVisible);
 
@@ -29,6 +32,9 @@ protected:
 
     UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
     TObjectPtr<UTextBlock> CountDownTime;
+
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UVerticalBox> LapsTimes;
 
 private:
     FTimerHandle TempTimerHandle;

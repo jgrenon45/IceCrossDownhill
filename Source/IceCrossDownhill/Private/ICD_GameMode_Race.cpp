@@ -71,8 +71,13 @@ void AICD_GameMode_Race::FinishRace()
     GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Race Finished!"));
 }
 
-void AICD_GameMode_Race::FinishLap()
-{    
+void AICD_GameMode_Race::FinishLap(AICD_PlayerState* PlayerState, AIceCrossDownhillPlayerController* PlayerController)
+{
     if (AICD_GameState* GS = GetGameState<AICD_GameState>())
-    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Lap Finished! Time: " + FString::SanitizeFloat(GS->GetRaceElapsedTime())));
+    {
+        float LapTime = GS->GetRaceElapsedTime();
+        PlayerState->UpdateLaps(LapTime);
+        PlayerController->OnLapCompleted(LapTime);
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Lap Finished! Time: " + FString::SanitizeFloat(LapTime)));
+    }
 }

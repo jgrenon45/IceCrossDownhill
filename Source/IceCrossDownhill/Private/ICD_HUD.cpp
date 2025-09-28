@@ -53,3 +53,9 @@ void AICD_HUD::UpdateRaceTime(float NewTime)
     if (TimerWidget)
         TimerWidget->SetRaceTime(NewTime);
 }
+
+void AICD_HUD::UpdateLapTime(float NewTime)
+{
+    if (TimerWidget)
+        TimerWidget->SetLapTime(NewTime);
+}

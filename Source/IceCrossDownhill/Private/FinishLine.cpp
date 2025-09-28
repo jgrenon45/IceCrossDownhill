@@ -4,6 +4,7 @@
 #include "FinishLine.h"
 #include <ICD_PlayerState.h>
 #include "ICD_GameMode_Race.h"
+#include "IceCrossDownhillPlayerController.h"
 
 // Sets default values
 AFinishLine::AFinishLine()
@@ -21,20 +22,17 @@ void AFinishLine::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Ot
 {
     if (APawn* Pawn = Cast<APawn>(OtherActor))
     {
-		AICD_PlayerState* PS = Cast<AICD_PlayerState>(Pawn->GetPlayerState());           
+		AICD_PlayerState* PS = Cast<AICD_PlayerState>(Pawn->GetPlayerState());
+        AIceCrossDownhillPlayerController* PC = Cast<AIceCrossDownhillPlayerController>(Pawn->GetController());
         if (AICD_GameMode_Race* GM = GetWorld()->GetAuthGameMode<AICD_GameMode_Race>())
         {
-			//Increment lap count
-			PS->CurrentLap++;
-
+            GM->FinishLap(PS, PC);
+            
             // Check if race is finished
             if (PS->CurrentLap > GM->NumberOfLaps)
             {
-                GM->FinishRace(); 
-            }
-            else
-            {
-                GM->FinishLap();
+                GM->FinishRace();
+                Destroy();
             }
         }
     }

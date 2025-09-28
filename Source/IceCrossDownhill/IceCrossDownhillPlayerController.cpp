@@ -3,6 +3,7 @@
 
 #include "IceCrossDownhillPlayerController.h"
 #include "EnhancedInputSubsystems.h"
+#include "ICD_HUD.h"
 #include "Engine/LocalPlayer.h"
 #include "InputMappingContext.h"
 
@@ -17,5 +18,13 @@ void AIceCrossDownhillPlayerController::SetupInputComponent()
 		{
 			Subsystem->AddMappingContext(CurrentContext, 0);
 		}
+	}
+}
+
+void AIceCrossDownhillPlayerController::OnLapCompleted(float LapTime)
+{
+	if (AICD_HUD* HUD = Cast<AICD_HUD>(GetHUD()))
+	{
+		HUD->UpdateLapTime(LapTime);
 	}
 }
